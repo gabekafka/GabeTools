@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
+import { useRouter } from 'next/navigation';
 
 // Define interfaces for type safety
 interface ShapeData {
@@ -20,6 +21,7 @@ declare global {
 }
 
 const ShapeSearch: React.FC = () => {
+  const router = useRouter();
   const [data, setData] = useState<ShapeData[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedShape, setSelectedShape] = useState<ShapeData | null>(null);
@@ -71,48 +73,61 @@ const ShapeSearch: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4">
-      <div className="bg-white shadow-md rounded-lg p-6 mb-4">
-        <h2 className="text-2xl font-bold mb-4">Shape Database Search</h2>
-        <div className="relative">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Search for a shape..."
-            className="w-full p-2 border rounded-lg mb-2 focus:outline-none focus:border-blue-500"
-          />
-          {suggestions.length > 0 && (
-            <div className="absolute z-10 w-full bg-white border rounded-lg shadow-lg">
-              {suggestions.map((shape, index) => (
-                <div
-                  key={index}
-                  className="p-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => handleSelect(shape)}
-                >
-                  {shape}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {selectedShape && (
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-bold mb-4">{selectedShape.Shape} Properties</h2>
-          <div className="grid grid-cols-2 gap-4">
-            {Object.entries(selectedShape).map(([key, value]) => (
-              key !== 'Shape' && (
-                <div key={key} className="border-b pb-2">
-                  <div className="text-sm text-gray-600">{key}</div>
-                  <div className="font-medium">{formatValue(value)}</div>
-                </div>
-              )
-            ))}
+    <div className="min-h-screen bg-[#121212] sketch-bg">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#121212]/50 to-[#121212] pointer-events-none" />
+      
+      <div className="w-full max-w-4xl mx-auto p-4 relative z-10">
+        <button
+          onClick={() => router.push('/')}
+          className="mb-8 px-4 py-2 bg-[#1a1a1a] border border-gray-700 hover:border-gray-500 text-gray-300 font-mono transition-all duration-200"
+        >
+          ← BACK
+        </button>
+        
+        <div className="sketch-border bg-[#1a1a1a]/80 p-8 mb-8">
+          <h2 className="text-3xl font-bold text-white mb-6 font-mono tracking-wider">W BEAMS DATABASE</h2>
+          <div className="relative">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search for a shape..."
+              className="w-full p-4 bg-[#121212] border border-gray-700 text-white font-mono focus:border-blue-500 focus:outline-none transition-all duration-200"
+            />
+            {suggestions.length > 0 && (
+              <div className="absolute z-10 w-full bg-[#1a1a1a] border border-gray-700 shadow-xl">
+                {suggestions.map((shape, index) => (
+                  <div
+                    key={index}
+                    className="p-4 hover:bg-[#252525] cursor-pointer text-gray-300 font-mono border-b border-gray-700 last:border-b-0"
+                    onClick={() => handleSelect(shape)}
+                  >
+                    {shape}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-      )}
+
+        {selectedShape && (
+          <div className="sketch-border bg-[#1a1a1a]/80 p-8">
+            <h2 className="text-3xl font-bold text-white mb-6 font-mono tracking-wider">
+              {selectedShape.Shape}
+            </h2>
+            <div className="grid grid-cols-2 gap-6">
+              {Object.entries(selectedShape).map(([key, value]) => (
+                key !== 'Shape' && (
+                  <div key={key} className="border-b border-gray-700 pb-4">
+                    <div className="text-sm text-gray-400 font-mono mb-1">{key}</div>
+                    <div className="text-white font-mono">{formatValue(value)}</div>
+                  </div>
+                )
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
