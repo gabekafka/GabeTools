@@ -13,14 +13,21 @@ export default function Home() {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
-      <div className="min-h-screen bg-[#121212] sketch-bg">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#121212]/50 to-[#121212] pointer-events-none" />
+      <div className="min-h-screen relative">
+        {/* Background Image */}
+        <div className="fixed inset-0">
+          <div 
+            className="absolute inset-0 bg-[url('/gavetools.png')] bg-cover bg-center"
+            style={{ opacity: theme === 'light' ? 0.3 : 0.4 }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
+        </div>
         
         {/* Theme Toggle */}
         <div className="absolute top-4 right-4 z-50">
           <button
             onClick={toggleTheme}
-            className="p-3 rounded-full bg-[#1a1a1a] border border-gray-700 hover:border-gray-500 transition-all duration-200 text-xl"
+            className="p-3 rounded-full glass-effect text-white/70 hover:text-white transition-all duration-200 text-xl"
             aria-label="Toggle theme"
           >
             {theme === 'light' ? '🌙' : '☀️'}
@@ -30,38 +37,38 @@ export default function Home() {
         {/* Main Content */}
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-4xl mx-auto text-center mt-20">
-            <h1 className="text-8xl font-bold mb-6 text-white font-mono relative">
-              <span className="absolute -inset-1 blur-sm bg-blue-500/20"></span>
-              GABE TOOLS
+            <h1 className="text-[120px] leading-none font-bold mb-6 text-white/90 font-mono relative tracking-tighter">
+              GABE
+              <br />
+              TOOLS
             </h1>
-            <p className="text-xl text-gray-400 mb-16 font-mono">
-              STRUCTURAL ANALYSIS & DESIGN TOOLKIT
+            <p className="text-xl text-white/60 mb-24 font-mono tracking-wider">
+              STRUCTURAL ANALYSIS & DESIGN
             </p>
 
             {/* Tools Grid */}
-            <div className="grid gap-8 mt-16">
+            <div className="mt-16">
               <button
                 onClick={() => router.push('/shapes')}
-                className="group relative overflow-hidden sketch-border bg-[#1a1a1a]/80 p-8 hover:bg-[#1a1a1a] transition-all duration-300"
+                className="group glass-effect px-12 py-8 hover:bg-white/5 transition-all duration-300"
               >
                 <div className="relative z-10">
-                  <h3 className="text-3xl font-bold text-white mb-4 font-mono tracking-wider">
+                  <h3 className="text-2xl font-bold text-white/90 mb-4 font-mono tracking-widest">
                     W BEAMS DATABASE
                   </h3>
-                  <p className="text-gray-400 font-mono">
+                  <p className="text-white/50 font-mono text-sm tracking-wider">
                     STRUCTURAL STEEL W-SHAPE PROPERTIES
                   </p>
-                  <div className="mt-6 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="mt-6 text-blue-400/70 opacity-0 group-hover:opacity-100 transition-all duration-300 tracking-widest">
                     EXPLORE →
                   </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-purple-900/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </button>
             </div>
           </div>
 
           {/* Footer */}
-          <footer className="mt-32 text-center text-gray-600 font-mono">
+          <footer className="mt-32 text-center text-white/30 font-mono">
             <p>© 2024 GABE TOOLS</p>
           </footer>
         </div>

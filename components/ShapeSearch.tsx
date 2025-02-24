@@ -73,33 +73,31 @@ const ShapeSearch: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] sketch-bg">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#121212]/50 to-[#121212] pointer-events-none" />
-      
+    <div className="min-h-screen bg-[#121212]">
       <div className="w-full max-w-4xl mx-auto p-4 relative z-10">
         <button
           onClick={() => router.push('/')}
-          className="mb-8 px-4 py-2 bg-[#1a1a1a] border border-gray-700 hover:border-gray-500 text-gray-300 font-mono transition-all duration-200"
+          className="mb-8 px-6 py-3 glass-effect text-white/70 hover:text-white font-mono tracking-wider transition-all duration-200"
         >
           ← BACK
         </button>
         
-        <div className="sketch-border bg-[#1a1a1a]/80 p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-6 font-mono tracking-wider">W BEAMS DATABASE</h2>
+        <div className="glass-effect p-8 mb-8">
+          <h2 className="text-3xl font-bold text-white/90 mb-8 font-mono tracking-widest">W BEAMS DATABASE</h2>
           <div className="relative">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search for a shape..."
-              className="w-full p-4 bg-[#121212] border border-gray-700 text-white font-mono focus:border-blue-500 focus:outline-none transition-all duration-200"
+              className="w-full p-4 bg-black/30 border border-white/10 text-white font-mono focus:border-white/30 focus:outline-none transition-all duration-200 tracking-wider"
             />
             {suggestions.length > 0 && (
-              <div className="absolute z-10 w-full bg-[#1a1a1a] border border-gray-700 shadow-xl">
+              <div className="absolute z-10 w-full glass-effect border border-white/10">
                 {suggestions.map((shape, index) => (
                   <div
                     key={index}
-                    className="p-4 hover:bg-[#252525] cursor-pointer text-gray-300 font-mono border-b border-gray-700 last:border-b-0"
+                    className="p-4 hover:bg-white/5 cursor-pointer text-white/70 hover:text-white font-mono tracking-wider border-b border-white/10 last:border-b-0"
                     onClick={() => handleSelect(shape)}
                   >
                     {shape}
@@ -111,16 +109,16 @@ const ShapeSearch: React.FC = () => {
         </div>
 
         {selectedShape && (
-          <div className="sketch-border bg-[#1a1a1a]/80 p-8">
-            <h2 className="text-3xl font-bold text-white mb-6 font-mono tracking-wider">
+          <div className="glass-effect p-8">
+            <h2 className="text-3xl font-bold text-white/90 mb-8 font-mono tracking-widest">
               {selectedShape.Shape}
             </h2>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-8">
               {Object.entries(selectedShape).map(([key, value]) => (
                 key !== 'Shape' && (
-                  <div key={key} className="border-b border-gray-700 pb-4">
-                    <div className="text-sm text-gray-400 font-mono mb-1">{key}</div>
-                    <div className="text-white font-mono">{formatValue(value)}</div>
+                  <div key={key} className="border-b border-white/10 pb-4">
+                    <div className="text-sm text-white/50 font-mono mb-2 tracking-wider">{key}</div>
+                    <div className="text-white/90 font-mono tracking-wider">{formatValue(value)}</div>
                   </div>
                 )
               ))}
